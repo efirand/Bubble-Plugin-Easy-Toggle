@@ -1,0 +1,15 @@
+{
+    "categories": {
+        "0": "productivity",
+        "1": "technical",
+        "2": "analytics",
+        "3": "compliance",
+        "4": "data (things)"
+    },
+    "demo_page": "https://editorai.bubbleapps.io/version-test/toggle",
+    "description": "Effortless toggle customization with flexible styling to match your project’s style guide. \n\nKey features include:\n\nLayout Options: Choose between circular or rectangular styles to fit your design needs.\nColor Customization: Easily set the color of the background and handle, allowing for seamless integration with your project's color scheme.\nBorder Styling: Customize the border color to enhance the visual appeal of the toggle.\nAuto-Binding Support: The toggle supports auto-binding, ensuring smooth integration and automatic updates with your data.\nMultiple Instances: Supports multiple instances on the same page, each with different layouts and customizations.",
+    "license": "commercial",
+    "link": "www.nocoderoi.com",
+    "name": "Easy Toggle",
+    "plugin_instructions": "Simply drag the toggle component and set it's styling properties to meet your design. \n\n\nSupports workflows of when toggle is clicked and when toggle value has changed"
+}

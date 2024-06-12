@@ -1,0 +1,99 @@
+{
+    "add_is_visible": true,
+    "autobinding_value": "boolean",
+    "can_fit_height": true,
+    "can_fit_width": true,
+    "category": "input forms",
+    "default_dim": {
+        "height": 20,
+        "width": 20
+    },
+    "display": "Custom Toggle",
+    "events": {
+        "AAF": {
+            "caption": "Easy toggle value has changed",
+            "name": "changed"
+        },
+        "AAO": {
+            "caption": "Easy toggle is clicked",
+            "name": "clicked"
+        }
+    },
+    "fields": {
+        "AAE": {
+            "caption": "Checked BG Color",
+            "default_val": "rgba(33, 150, 243, 1)",
+            "editor": "Color",
+            "name": "main_color_checked",
+            "rank": 1
+        },
+        "AAG": {
+            "caption": "Handle Color",
+            "default_val": "rgba(255, 255, 255, 1)",
+            "editor": "Color",
+            "name": "handle_color",
+            "rank": 3
+        },
+        "AAH": {
+            "caption": "Un-checked BG Color",
+            "default_val": "rgba(204, 204, 204, 1)",
+            "editor": "Color",
+            "name": "main_color_unchecked",
+            "rank": 2
+        },
+        "AAI": {
+            "caption": "Border Color",
+            "default_val": "rgba(0, 0, 255, 1)",
+            "editor": "Color",
+            "name": "border_color",
+            "rank": 5
+        },
+        "AAJ": {
+            "caption": "Toggle Type",
+            "default_val": "Rounded",
+            "editor": "Dropdown",
+            "name": "toggle_type",
+            "options": "Rounded, Rectangular",
+            "rank": 0
+        },
+        "AAK": {
+            "caption": "Focus Color",
+            "default_val": "rgba(33,150,243,1)",
+            "editor": "Color",
+            "name": "main_focus_color",
+            "rank": 6
+        },
+        "AAL": {
+            "caption": "Show Border",
+            "default_val": false,
+            "editor": "Checkbox",
+            "name": "show_border",
+            "rank": 4
+        },
+        "AAM": {
+            "caption": "Border Width",
+            "default_val": 1,
+            "doc": "Border width in px",
+            "editor": "StaticNumber",
+            "name": "border_width",
+            "rank": 7,
+            "value": "number_range"
+        }
+    },
+    "icon": "ion-ios-toggle-outline",
+    "property_applications": {
+        "MinWidth": true,
+        "resizable": true
+    },
+    "states": {
+        "AAD": {
+            "caption": "Is Checked",
+            "initialization_code": {
+                "fn": "function(properties, context) {\n\n\n\n}"
+            },
+            "name": "checked",
+            "value": "boolean"
+        }
+    },
+    "support_autobinding": true
+}

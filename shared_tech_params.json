@@ -1,0 +1,12 @@
+{
+    "assets": {
+        "AAN": {
+            "name": "toggle_svg",
+            "url": "//meta-q.cdn.bubble.io/f1718123024270x928186442858206300/toggle-off-switch-svgrepo-com.svg"
+        }
+    },
+    "dependencies": {
+        "plugin_api_version": 4,
+        "use_jquery": true
+    }
+}
