@@ -22,31 +22,31 @@
     "fields": {
         "AAE": {
             "caption": "Checked BG Color",
-            "default_val": "rgba(33, 150, 243, 1)",
+            "default_val": "rgba(255, 165, 0, 1)",
             "editor": "Color",
             "name": "main_color_checked",
-            "rank": 1
+            "rank": 2
         },
         "AAG": {
-            "caption": "Handle Color",
-            "default_val": "rgba(255, 255, 255, 1)",
+            "caption": "Handle Color Checked",
+            "default_val": "rgba(0, 0, 0, 1)",
             "editor": "Color",
-            "name": "handle_color",
-            "rank": 3
+            "name": "handle_color_checked",
+            "rank": 4
         },
         "AAH": {
             "caption": "Un-checked BG Color",
-            "default_val": "rgba(204, 204, 204, 1)",
+            "default_val": "rgba(128,128,128,0.5)",
             "editor": "Color",
             "name": "main_color_unchecked",
-            "rank": 2
+            "rank": 3
         },
         "AAI": {
             "caption": "Border Color",
             "default_val": "rgba(0, 0, 255, 1)",
             "editor": "Color",
             "name": "border_color",
-            "rank": 5
+            "rank": 8
         },
         "AAJ": {
             "caption": "Toggle Type",
@@ -68,16 +68,22 @@
             "default_val": false,
             "editor": "Checkbox",
             "name": "show_border",
-            "rank": 4
+            "rank": 7
         },
-        "AAM": {
-            "caption": "Border Width",
-            "default_val": 1,
-            "doc": "Border width in px",
-            "editor": "StaticNumber",
-            "name": "border_width",
-            "rank": 7,
-            "value": "number_range"
+        "AAT": {
+            "caption": "Switch State",
+            "default_val": "Checked",
+            "editor": "Dropdown",
+            "name": "switch_state",
+            "options": "Checked,Unchecked,State",
+            "rank": 1
+        },
+        "AAU": {
+            "caption": "Handle Color Unchecked",
+            "default_val": "rgba(0, 0, 0, 1)",
+            "editor": "Color",
+            "name": "handle_color_unchecked",
+            "rank": 5
         }
     },
     "icon": "ion-ios-toggle-outline",

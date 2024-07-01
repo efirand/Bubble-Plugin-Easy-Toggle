@@ -1,5 +1,4 @@
 function(instance, properties, context) {
-    // Function to set the switch dimensions and calculate proportions
     function setSwitchDimensions(idPrefix) {
         const switchWidth = properties.bubble.width();
         const switchHeight = properties.bubble.height();
@@ -47,7 +46,7 @@ function(instance, properties, context) {
                 width: ${handleSize}px;
                 left: 4px;
                 bottom: 4px;
-                background-color: ${properties.handle_color};
+                background-color: ${properties.handle_color_unchecked};
                 -webkit-transition: .4s;
                 transition: .4s;
             }
@@ -61,6 +60,7 @@ function(instance, properties, context) {
                 -webkit-transform: translateX(${transformX}px);
                 -ms-transform: translateX(${transformX}px);
                 transform: translateX(${transformX}px);
+                background-color: ${properties.handle_color_checked};
             }
             #${uniqueId} .slider.round {
                 border-radius: 34px;
@@ -79,8 +79,17 @@ function(instance, properties, context) {
         const toggleLabel = document.createElement('label');
         toggleLabel.classList.add('switch');
         toggleLabel.id = uniqueId;
+        
+        // Set initial checked state based on properties.switch_state
+        let initialChecked = false;
+        if (properties.switch_state === 'Checked') {
+            initialChecked = true;
+        } else if (properties.switch_state === 'Unchecked') {
+            initialChecked = false;
+        }
+
         toggleLabel.innerHTML = `
-          <input type="checkbox" id="${uniqueId}-input" style="display: none;">
+          <input type="checkbox" id="${uniqueId}-input" style="display: none;" ${initialChecked ? 'checked' : ''}>
           <span class="slider ${toggleType}"></span>
         `;
         return toggleLabel;
@@ -101,17 +110,41 @@ function(instance, properties, context) {
         }
 
         const toggleCheck = document.getElementById(`${properties.toggle_type === 'Rounded' ? uniqueIdRounded : uniqueIdRectangular}-input`);
+        instance.data.toggleCheck = toggleCheck;
+
+        // Publish the initial state when the plugin loads if not in 'State' mode
+        if (properties.switch_state !== 'State') {
+            instance.publishState('checked', toggleCheck.checked);
+            instance.publishAutobinding(toggleCheck.checked);
+        }
 
         // Bind the event listener to the selected element
         (properties.toggle_type === 'Rounded' ? toggleLabelRounded : toggleLabelRectangular).addEventListener('click', function() {
-            // Manually toggle the checkbox's checked state
-            toggleCheck.checked = !toggleCheck.checked;
+            // Only toggle manually if not in 'State' mode
+            if (properties.switch_state !== 'State') {
+                // Manually toggle the checkbox's checked state
+                toggleCheck.checked = !toggleCheck.checked;
 
-            // Trigger the same events as before
-            instance.publishState('checked', toggleCheck.checked);
-            instance.publishAutobinding(toggleCheck.checked);
-            instance.triggerEvent('changed');
+                // Update handle color based on checked state
+                const handleColor = toggleCheck.checked ? properties.handle_color_checked : properties.handle_color_unchecked;
+                toggleCheck.nextElementSibling.style.setProperty('--slider-before-bg', handleColor);
+
+                // Trigger the same events as before
+                instance.publishState('checked', toggleCheck.checked);
+                instance.publishAutobinding(toggleCheck.checked);
+                instance.triggerEvent('changed');
+            }
         });
+
+        // Function to update the toggle state based on property.checked
+        instance.data.updateToggleState = function(checked) {
+            toggleCheck.checked = checked;
+            const handleColor = checked ? properties.handle_color_checked : properties.handle_color_unchecked;
+            toggleCheck.nextElementSibling.style.setProperty('--slider-before-bg', handleColor);
+            instance.publishState('checked', checked);
+            instance.publishAutobinding(checked);
+            instance.triggerEvent('changed');
+        };
     }
 
     instance.data.isRun = true;

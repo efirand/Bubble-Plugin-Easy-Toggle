@@ -1,0 +1,12 @@
+{
+    "caption": "change_toggle_state",
+    "fields": {
+        "AAS": {
+            "caption": "checked?",
+            "default_val": true,
+            "editor": "Checkbox",
+            "name": "isChecked",
+            "rank": 0
+        }
+    }
+}
