@@ -86,6 +86,8 @@ function(instance, properties, context) {
             initialChecked = true;
         } else if (properties.switch_state === 'Unchecked') {
             initialChecked = false;
+        } else if (properties.switch_state === 'Data Source') {
+            initialChecked = properties.data_source;
         }
 
         toggleLabel.innerHTML = `
@@ -112,16 +114,19 @@ function(instance, properties, context) {
         const toggleCheck = document.getElementById(`${properties.toggle_type === 'Rounded' ? uniqueIdRounded : uniqueIdRectangular}-input`);
         instance.data.toggleCheck = toggleCheck;
 
-        // Publish the initial state when the plugin loads if not in 'State' mode
-        if (properties.switch_state !== 'State') {
+        // Publish the initial state when the plugin loads if not in 'State' or 'Data Source' mode
+        if (properties.switch_state !== 'State' && properties.switch_state !== 'Data Source') {
             instance.publishState('checked', toggleCheck.checked);
             instance.publishAutobinding(toggleCheck.checked);
         }
 
         // Bind the event listener to the selected element
         (properties.toggle_type === 'Rounded' ? toggleLabelRounded : toggleLabelRectangular).addEventListener('click', function() {
-            // Only toggle manually if not in 'State' mode
-            if (properties.switch_state !== 'State') {
+            // Trigger the click event
+            instance.triggerEvent('clicked');
+
+            // Only toggle manually if not in 'State' or 'Data Source' mode
+            if (properties.switch_state !== 'State' && properties.switch_state !== 'Data Source') {
                 // Manually toggle the checkbox's checked state
                 toggleCheck.checked = !toggleCheck.checked;
 
@@ -145,7 +150,32 @@ function(instance, properties, context) {
             instance.publishAutobinding(checked);
             instance.triggerEvent('changed');
         };
+
+        // Function to update the toggle state based on data_source
+        instance.data.updateDataSourceState = function() {
+            if (properties.switch_state === 'Data Source') {
+                const checked = properties.data_source;
+                toggleCheck.checked = checked;
+                const handleColor = checked ? properties.handle_color_checked : properties.handle_color_unchecked;
+                toggleCheck.nextElementSibling.style.setProperty('--slider-before-bg', handleColor);
+                instance.publishState('checked', checked);
+                instance.publishAutobinding(checked);
+                instance.triggerEvent('changed');
+            }
+        };
+
+        // Initial call to set state based on data source
+        if (properties.switch_state == 'Data Source') {
+            instance.data.updateDataSourceState();
+        }
+
+        instance.data.isRun = true;
     }
 
-    instance.data.isRun = true;
+    // Update the state when properties.data_source changes and switch_state is 'Data Source'
+    instance.update = function(properties, context) {
+        if (properties.switch_state == 'Data Source') {
+            instance.data.updateDataSourceState();
+        }
+    };
 }
